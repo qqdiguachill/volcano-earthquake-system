@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav-menu").classList.toggle("open");
+        }
+    </script>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">火山・地震情報</div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <nav id="nav-menu" class="nav-menu">
+        <a href="/">降灰情報</a>
+        <a href="/volcano-levels">火山等級</a>
+        <a href="/earthquake">地震速報</a>
+        <a href="/count">統計圖表</a>
+    </nav>
+</header>
+
+<main class="container">
+    {% extends "base.html" %}
+{% block content %}
+
+<h1>火山情報一覧</h1>
+
+<table class="volcano-table fade-in">
+    <thead>
+        <tr>
+            <th>火山名</th>
+            <th>等級</th>
+            <th>標高</th>
+            <th>位置</th>
+            <th>最近の活動</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in items %}
+        <tr>
+            <td>
+                <a href="{{ row['url'] }}" target="_blank">
+                    {{ row['volcano_name'] }}
+                </a>
+            </td>
+
+            <td>{{ row['level_name'] }}</td>
+
+            <td>{{ row['elevation'] }}</td>
+
+            <td>{{ row['longitude'] }}, {{ row['latitude'] }}</td>
+
+            <td>
+                <details class="activity-box">
+                    <summary>最近の活動を見る</summary>
+
+                    {% for act in activities %}
+                        {% if act['volcano_id'] == row['id'] %}
+                            <div class="activity-item">
+                                <strong>{{ act['published'] }}</strong><br>
+                                {{ act['phenomenon'] }}<br>
+                                <a href="{{ act['link'] }}" target="_blank">詳細</a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </details>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+</main>
+
+
+<footer class="site-footer">
+    <p>data from https://tenki.jp</p>
+</footer>
+</body>
+</html>

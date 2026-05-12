@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .container { max-width: 900px; margin: 24px auto; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>{{ title }}</h1>
+    <canvas id="volcanoChart"></canvas>
+</div>
+
+<script>
+    const ctx = document.getElementById('volcanoChart').getContext('2d');
+
+    new Chart(ctx, {
+        data: {
+            labels: {{ labels|tojson }},
+            datasets: [
+                {
+                    type: 'bar',
+                    label: '每日事件數 (長條)',
+                    data: {{ data|tojson }},
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                },
+                {
+                    type: 'line',
+                    label: '事件趨勢 (走勢線)',
+                    data: {{ data|tojson }},
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: false,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: '件數' }
+                },
+                x: {
+                    title: { display: true, text: '日期' }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

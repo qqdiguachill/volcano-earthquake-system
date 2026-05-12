@@ -1,0 +1,304 @@
+/* 全域設定 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #eef2f7;
+    font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    color: #222;
+}
+
+/* 容器 */
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* 頁首 */
+.site-header {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+    padding: 24px 0 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 0.05em;
+}
+
+.subtitle {
+    margin-top: 6px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* 頁尾 */
+.site-footer {
+    width: 100%;
+    background: #1e1e1e;
+    color: #ccc;
+    padding: 18px 0;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 40px;
+}
+
+
+/* 卡片區 */
+.cards {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 20px;
+}
+
+/* 卡片 */
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-left: 5px solid #2a5298;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* 卡片動畫 */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 標題區 */
+.card-header {
+    margin-bottom: 10px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #2a5298;
+    color: #fff;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+}
+
+.volcano-name {
+    margin: 8px 0 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.updated {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: #666;
+}
+
+/* 內容 */
+.content-text {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+/* 底部連結 */
+.card-footer {
+    margin-top: 14px;
+    text-align: right;
+}
+
+.link {
+    font-size: 14px;
+    color: #1e3c72;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(30, 60, 114, 0.3);
+    padding-bottom: 2px;
+}
+
+.link:hover {
+    color: #14284d;
+    border-color: #14284d;
+}
+/* 漢堡選單 */
+.topbar {
+    background: #1e3c72;
+    color: #fff;
+    padding: 12px 0;
+}
+
+.topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 92%;
+    margin: 0 auto;
+}
+
+.hamburger {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.nav-menu {
+    display: none;
+    flex-direction: column;
+    background: #2a5298;
+}
+
+.nav-menu.open {
+    display: flex;
+}
+
+.nav-menu a {
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 表格 */
+.volcano-table, .eq-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;   /* 加上圓角 */
+    overflow: hidden;     /* 讓圓角生效 */
+
+}
+
+.volcano-table th, .volcano-table td,
+.eq-table th, .eq-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    
+}
+
+.volcano-table th {
+    background: #2a5298;
+    color: white;
+}
+
+.eq-table th {
+    background: #444;
+    color: white;
+}
+
+/* 地震卡片 */
+.eq-card {
+    background: white;
+    padding: 16px;
+    margin-bottom: 20px;
+    border-left: 4px solid #2a5298;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;   /* 加上圓角 */
+    overflow: hidden;     /* 讓圓角生效 */
+}
+
+/* 漢堡選單動畫 */
+.nav-menu {
+    display: none;
+    flex-direction: column;
+    background: #2a5298;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease-out;
+}
+
+.nav-menu.open {
+    display: flex;
+    max-height: 300px;
+}
+
+.nav-menu a {
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 折疊式活動列表 */
+.activity-box {
+    background: #f8faff;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #d0d7e2;
+}
+
+.activity-box summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #2a5298;
+    font-size: 14px;
+    list-style: none;
+}
+
+.activity-box summary::-webkit-details-marker {
+    display: none;
+}
+
+.activity-box[open] summary {
+    margin-bottom: 8px;
+}
+
+.activity-item {
+    padding: 6px 0;
+    border-bottom: 1px solid #e0e6ef;
+    font-size: 13px;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.site-footer {
+    margin-top: 40px;
+    padding: 16px 0;
+    background: #1e1e1e;
+    color: #fff;            /* 設定文字為白色 */
+    text-align: center;
+    font-size: 13px;
+}
+
+.site-footer a {
+    color: #fff;            /* 超連結文字也設為白色 */
+    text-decoration: none;  /* 移除底線 */
+    margin: 0 8px;          /* 左右間距 */
+}
+
+.site-footer a:hover {
+    text-decoration: underline; /* 滑鼠移上去顯示底線 */
+}
+
+.filter-form {
+    margin: 20px 0;
+    text-align: right;
+
+}
+
+.filter-form select {
+    padding: 8px 12px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

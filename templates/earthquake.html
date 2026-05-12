@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav-menu").classList.toggle("open");
+        }
+    </script>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">火山・地震情報</div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <nav id="nav-menu" class="nav-menu">
+        <a href="/">降灰情報</a>
+        <a href="/volcano-levels">火山等級</a>
+        <a href="/earthquake">地震速報</a>
+        <a href="/count">統計圖表</a>
+    </nav>
+</header>
+
+<main class="container">
+    {% extends "base.html" %}
+{% block content %}
+
+<h1>地震速報</h1>
+
+{% for r in reports %}
+<div class="eq-card fade-in">
+    <h2>{{ r['report_datetime'] }}</h2>
+    <p>{{ r['headline_text'] }}</p>
+
+    <h3>震度分布</h3>
+    <table class="eq-table">
+        <thead>
+            <tr><th>震度</th><th>地域</th></tr>
+        </thead>
+        <tbody>
+            {% for i in intensities %}
+                {% if i['report_id'] == r['id'] %}
+                <tr>
+                    <td>{{ i['intensity'] }}</td>
+                    <td>{{ i['area_name'] }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+
+{% endblock %}
+</main>
+
+
+<footer class="site-footer">
+    <p>Data from Japan Meteorological Agency</p>
+</footer>
+</body>
+</html>

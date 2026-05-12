@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav-menu").classList.toggle("open");
+        }
+    </script>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">火山・地震情報</div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <nav id="nav-menu" class="nav-menu">
+        <a href="/">降灰情報</a>
+        <a href="/volcano-levels">火山等級</a>
+        <a href="/earthquake">地震速報</a>
+        <a href="/count">統計圖表</a>
+    </nav>
+</header>
+
+<main class="container">
+    {% extends "base.html" %}
+{% block content %}
+<h1>火山地震情報一覧</h1>
+
+<form method="get" class="filter-form">
+    <select name="type" onchange="this.form.submit()">
+        <option value="">すべての情報</option>
+
+        <option value="降灰予報（定時）" {% if filter_type == "降灰予報（定時）" %}selected{% endif %}>降灰予報（定時）</option>
+        <option value="震源・震度に関する情報" {% if filter_type == "震源・震度に関する情報" %}selected{% endif %}>震源・震度に関する情報</option>
+        <option value="震源に関する情報" {% if filter_type == "震源に関する情報" %}selected{% endif %}>震源に関する情報</option>
+        <option value="震度速報" {% if filter_type == "震度速報" %}selected{% endif %}>震度速報</option>
+        <option value="火山の状況に関する解説情報" {% if filter_type == "火山の状況に関する解説情報" %}selected{% endif %}>火山の状況に関する解説情報</option>
+        <option value="津波情報" {% if filter_type == "津波情報" %}selected{% endif %}>津波情報</option>
+        <option value="津波警報・注意報・予報" {% if filter_type == "津波警報・注意報・予報" %}selected{% endif %}>津波警報・注意報・予報</option>
+        <option value="顕著な地震の震源要素更新のお知らせ" {% if filter_type == "顕著な地震の震源要素更新のお知らせ" %}selected{% endif %}>顕著な地震の震源要素更新のお知らせ</option>
+        <option value="沖合の津波観測に関する情報" {% if filter_type == "沖合の津波観測に関する情報" %}selected{% endif %}>沖合の津波観測に関する情報</option>
+        <option value="長周期地震動に関する観測情報" {% if filter_type == "長周期地震動に関する観測情報" %}selected{% endif %}>長周期地震動に関する観測情報</option>
+    </select>
+</form>
+
+<div class="cards">
+    {% for row in items %}
+        <article class="card fade-in">
+            <header class="card-header">
+                <span class="badge">{{ row["title"] }}</span>
+                <h2 class="volcano-name">{{ row["volcano_name"] }}</h2>
+                <p class="updated">更新時間：{{ row["updated"] }}</p>
+            </header>
+
+            <section class="card-content">
+                <p class="content-text">{{ row["content"] }}</p>
+            </section>
+
+            <footer class="card-footer">
+                <a href="{{ row['link'] }}" class="link" target="_blank">▶ 詳細 XML</a>
+            </footer>
+        </article>
+    {% endfor %}
+</div>
+{% endblock %}
+
+</main>
+
+
+<footer class="site-footer">
+    <p>Data from Japan Meteorological Agency</p>
+</footer>
+</body>
+</html>

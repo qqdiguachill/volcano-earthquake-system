@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav-menu").classList.toggle("open");
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- <header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">火山・地震情報</div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <nav id="nav-menu" class="nav-menu">
+        <a href="/">降灰情報</a>
+        <a href="/volcano-levels">火山等級</a>
+        <a href="/earthquake">地震速報</a>
+    </nav>
+</header> -->
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+
+
+<footer class="site-footer">
+  <p>
+    Data source: 
+    <a href="https://www.jma.go.jp/" target="_blank">
+        Japan Meteorological Agency
+    </a>
+    <a href="https://tenki.jp" target="_blank">
+        tenki.jp
+    </a>
+  </p>
+</footer>
+</body>
+</html>
